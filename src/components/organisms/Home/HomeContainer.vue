@@ -8,6 +8,14 @@
       :items="categories"
       @update:model-value="updateCategory"
     ></v-combobox>
+    <v-btn
+      v-if="category"
+      class="home-container__button fade-in"
+      variant="tonal"
+      @click="handleButton"
+    >
+      Let's go!
+    </v-btn>
   </div>
 </template>
 
@@ -59,23 +67,31 @@ export default defineComponent({
       }
     }
 
+    const handleButton = () => {
+      console.log('CLICK')
+    }
+
     getCategories()
 
     return {
       category,
       categories,
 
-      updateCategory
+      updateCategory,
+      handleButton
     }
   }
 })
 </script>
 
-<style lang="scss" scoped>
-.home-container {
-  padding-block: 1rem;
+<style lang="sass" scoped>
+@import '@/assets/animations.sass'
+.home-container
+  display: flex
+  flex-direction: column
+  padding-block: 1rem
 
-  &__title {
-  }
-}
+  &__button
+    width: fit-content
+    place-self: center
 </style>

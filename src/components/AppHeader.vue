@@ -20,10 +20,10 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-h1 {
-  text-align: center;
-  color: #f4ebcf;
-  text-shadow: -3px 3px 1px #eb492c;
-}
+<style lang="sass" scoped>
+h1
+  text-align: center
+  color: #f4ebcf
+  text-shadow: -3px 3px 1px #eb492c
+
 </style>
