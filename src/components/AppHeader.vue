@@ -1,16 +1,14 @@
 <template>
-  <main>
-    <HomeContainer />
-  </main>
+  <div class="header">
+    <h1 class="header__title">mindmania</h1>
+  </div>
 </template>
 
 <script lang="ts">
 import { ref, defineComponent } from 'vue'
-import HomeContainer from '@/components/organisms/Home/HomeContainer.vue'
 
 export default defineComponent({
-  name: 'HomeView',
-  components: { HomeContainer },
+  name: 'AppHeader',
   setup() {
     const count = ref(0)
 
@@ -21,3 +19,11 @@ export default defineComponent({
   }
 })
 </script>
+
+<style scoped>
+h1 {
+  text-align: center;
+  color: #f4ebcf;
+  text-shadow: -3px 3px 1px #eb492c;
+}
+</style>

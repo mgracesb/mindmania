@@ -1,24 +1,33 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
   <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
     <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
+      <AppHeader />
     </div>
   </header>
 
-  <RouterView />
+  <RouterView>
+    <HomeView />
+  </RouterView>
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+import { RouterView } from 'vue-router'
+
+import AppHeader from '@/components/AppHeader.vue'
+import HomeView from '@/views/HomeView.vue'
+
+export default defineComponent({
+  name: 'App',
+  components: { AppHeader, HomeView, RouterView },
+  setup() {
+    return {}
+  }
+})
+</script>
 
 <style scoped>
 header {
