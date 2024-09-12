@@ -90,6 +90,7 @@ export default defineComponent({
   display: flex
   flex-direction: column
   padding-block: 1rem
+  padding-block-start: 2rem
 
   &__button
     width: fit-content

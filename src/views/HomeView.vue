@@ -5,19 +5,12 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from 'vue'
+import { defineComponent } from 'vue'
 import HomeContainer from '@/components/organisms/Home/HomeContainer.vue'
 
 export default defineComponent({
   name: 'HomeView',
   components: { HomeContainer },
-  setup() {
-    const count = ref(0)
-
-    // expose to template and other options API hooks
-    return {
-      count
-    }
-  }
+  setup() {}
 })
 </script>
