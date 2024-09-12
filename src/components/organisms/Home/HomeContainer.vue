@@ -21,6 +21,7 @@
 
 <script lang="ts">
 import { ref, defineComponent } from 'vue'
+import router from '@/router/index.ts'
 
 interface CategoryInterface {
   id: number
@@ -31,6 +32,7 @@ export default defineComponent({
   name: 'HomeContainer',
   setup() {
     const category = ref('')
+    const categoryId = ref(null)
     const categories = ref([])
     const categoryCompleteList = ref([])
 
@@ -52,23 +54,13 @@ export default defineComponent({
       const selectedCategory = categoryCompleteList.value.filter(
         (category) => category.name === cat
       )
-      const categoryID = selectedCategory[0].id
 
-      console.log('UPDATE', categoryID)
-      const url = `https://opentdb.com/api.php?amount=10&category=${categoryID}`
-      try {
-        const rawResponse = await fetch(url, {
-          method: 'POST'
-        })
-        const res = await rawResponse.json()
-        console.log('RES', res)
-      } catch (error) {
-        console.log('ERROPR', error)
-      }
+      categoryId.value = selectedCategory[0].id
     }
 
     const handleButton = () => {
-      console.log('CLICK')
+      const ID = `${categoryId.value}/${category.value}`
+      router.push({ name: 'quiz', params: { id: ID } })
     }
 
     getCategories()
