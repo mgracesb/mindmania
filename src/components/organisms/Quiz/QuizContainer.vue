@@ -34,7 +34,9 @@ export default defineComponent({
 
 <style lang="sass" scoped>
 .quiz-container
+  height: 100%
+  padding-top: 25%
   display: flex
   flex-direction: column
-  padding-top: 2rem
+  align-items: center
 </style>

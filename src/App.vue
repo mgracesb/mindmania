@@ -1,6 +1,6 @@
 <template>
   <header class="header" :class="{ mini: routeIsQuiz }">
-    <img alt="Vue logo" class="logo" src="@/assets/logo.png" />
+    <img alt="Vue logo" class="logo" src="@/assets/icons/logo.png" />
     <div class="wrapper">
       <AppHeader />
     </div>
