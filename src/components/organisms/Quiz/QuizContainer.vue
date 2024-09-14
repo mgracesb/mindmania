@@ -1,6 +1,6 @@
 <template>
   <div class="quiz-container">
-    <p class="section-title">{{ category }}</p>
+    <p class="quiz-container__title section-title">{{ category }}</p>
     <div v-if="quiz" class="quiz-container__list">
       <CardItem
         v-if="currentQuestionIndex < quiz.length"
@@ -39,4 +39,8 @@ export default defineComponent({
   display: flex
   flex-direction: column
   align-items: center
+  gap: 2rem
+  &__title
+    letter-spacing: 1px
+    text-shadow: 1px 1px 2px whitesmoke
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="card-item">
-    <img class="card-item__category" :src="cam" />
+    <img class="card-item__category" :src="Film" />
     <v-card>
       <slot name="append">
         <img class="card-item__icon" :src="getIcon(question.difficulty)" />
@@ -18,8 +18,8 @@
 
 <script lang="ts">
 import { ref, defineComponent } from 'vue'
-import HardLogo from '@/assets/icons/hard.png'
-import cam from '@/assets/icons/film.png'
+import HardIcon from '@/assets/icons/levels/hard.svg'
+import Film from '@/assets/icons/categories/film.svg'
 
 export default defineComponent({
   name: 'CardItem',
@@ -30,8 +30,9 @@ export default defineComponent({
     const options = ref(null)
 
     const getIcon = (data: string) => {
-      return HardLogo
+      return HardIcon
     }
+
     const shuffle = () => {
       const list = [...props.question.incorrect_answers]
       list.push(props.question.correct_answer)
@@ -49,7 +50,7 @@ export default defineComponent({
     return {
       options,
       getIcon,
-      cam
+      Film
     }
   }
 })
@@ -79,7 +80,7 @@ export default defineComponent({
     position: absolute
     top: -2.5rem
     left: -1rem
-    height: 5rem
+    height: 6rem
     width: auto
     transform: rotate(-25deg)
     filter: drop-shadow(4px 8px 6px black)

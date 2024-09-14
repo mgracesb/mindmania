@@ -1,6 +1,6 @@
 <template>
   <header class="header" :class="{ mini: routeIsQuiz }">
-    <img alt="Vue logo" class="logo" src="@/assets/icons/logo.png" />
+    <img alt="Vue logo" class="logo" :src="Logo" />
     <div class="wrapper">
       <AppHeader />
     </div>
@@ -10,10 +10,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, type ComputedRef } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 
 import AppHeader from '@/components/AppHeader.vue'
+import Logo from '@/assets/icons/logo.png'
 
 export default defineComponent({
   name: 'App',
@@ -21,11 +22,13 @@ export default defineComponent({
   setup() {
     const route = useRoute()
 
-    const routeIsQuiz = computed(() => {
+    const routeIsQuiz: ComputedRef<boolean> = computed(() => {
       return route.name === 'quiz'
     })
 
     return {
+      Logo,
+
       routeIsQuiz
     }
   }
