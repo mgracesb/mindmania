@@ -41,7 +41,7 @@ export default defineComponent({
 
         if (isCorrect) {
           correctAnswers.value++
-        } 
+        }
 
         if (currentQuestionIndex.value === props.quiz.length) {
           emit('complete', correctAnswers.value)
@@ -70,6 +70,8 @@ export default defineComponent({
   flex-direction: column
   align-items: center
   gap: 3rem
+  @media (min-width: 700px)
+    padding-top: 10%
   &__title
     letter-spacing: 1px
     text-shadow: 1px 1px 2px whitesmoke

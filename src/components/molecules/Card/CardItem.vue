@@ -19,6 +19,9 @@
           {{ option }}
         </v-btn>
       </div>
+      <div v-if="isTransitioning" class="loader">
+        <v-progress-linear color="teal" indeterminate></v-progress-linear>
+      </div>
     </v-card>
   </div>
 </template>
@@ -192,4 +195,12 @@ export default defineComponent({
     transform: rotate(-25deg)
     filter: drop-shadow(4px 8px 6px black)
     z-index: 2
+
+.loader
+  position: absolute
+  bottom: 2px
+  z-index: 2
+  height: 2px
+  width: 100%
+  left: 0
 </style>
