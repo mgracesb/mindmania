@@ -1,6 +1,6 @@
 <template>
   <div class="card-item">
-    <img class="card-item__category" :src="Film" />
+    <img class="card-item__category" :src="getCategory(question.category)" />
     <v-card>
       <slot name="append">
         <img class="card-item__icon" :src="getIcon(question.difficulty)" />
@@ -30,7 +30,31 @@ import { QuestionType } from '@/utils/types/Card.ts'
 import HardIcon from '@/assets/icons/levels/hard.svg'
 import MediumIcon from '@/assets/icons/levels/medium.svg'
 import EasyIcon from '@/assets/icons/levels/easy.svg'
-import Film from '@/assets/icons/categories/film.svg'
+
+import AnimalsIcon from '@/assets/icons/categories/animals.svg'
+import ArtIcon from '@/assets/icons/categories/art.svg'
+import BoardIcon from '@/assets/icons/categories/boardgames.svg'
+import BooksIcon from '@/assets/icons/categories/books.svg'
+import CartoonIcon from '@/assets/icons/categories/cartoon.svg'
+import CelebIcon from '@/assets/icons/categories/celebrities.svg'
+import ComicsIcon from '@/assets/icons/categories/comics.svg'
+import FilmIcon from '@/assets/icons/categories/film.svg'
+import GadgetsIcon from '@/assets/icons/categories/gadgets.svg'
+import GenIcon from '@/assets/icons/categories/knowledge.svg'
+import GeoIcon from '@/assets/icons/categories/geography.svg'
+import HistoryIcon from '@/assets/icons/categories/history.svg'
+import MangaIcon from '@/assets/icons/categories/manga.svg'
+import MathsIcon from '@/assets/icons/categories/mathematics.svg'
+import MusicIcon from '@/assets/icons/categories/music.svg'
+import MythIcon from '@/assets/icons/categories/mythology.svg'
+import NatureIcon from '@/assets/icons/categories/nature.svg'
+import PCIcon from '@/assets/icons/categories/computers.svg'
+import PoliticsIcon from '@/assets/icons/categories/politics.svg'
+import SportsIcon from '@/assets/icons/categories/sports.svg'
+import TheatreIcon from '@/assets/icons/categories/theatre.svg'
+import TVIcon from '@/assets/icons/categories/television.svg'
+import VehiclesIcon from '@/assets/icons/categories/vehicles.svg'
+import VideoIcon from '@/assets/icons/categories/videogames.svg'
 
 export default defineComponent({
   name: 'CardItem',
@@ -47,10 +71,39 @@ export default defineComponent({
   setup(props, { emit }) {
     const selected = ref(null)
 
-    const getIcon = (data: string) => {
+    const getIcon = (data: string): string => {
       if (data === 'hard') return HardIcon
       if (data === 'medium') return MediumIcon
       return EasyIcon
+    }
+
+    const getCategory = (data: string): string => {
+      if (data.toLowerCase().includes('general')) return GenIcon
+      if (data.toLowerCase().includes('film')) return FilmIcon
+      if (data.toLowerCase().includes('books')) return BooksIcon
+      if (data.toLowerCase().includes('theatres')) return TheatreIcon
+      if (data.toLowerCase().includes('music')) return MusicIcon
+      if (data.toLowerCase().includes('television')) return TVIcon
+      if (data.toLowerCase().includes('video')) return VideoIcon
+      if (data.toLowerCase().includes('board')) return BoardIcon
+      if (data.toLowerCase().includes('nature')) return NatureIcon
+      if (data.toLowerCase().includes('computers')) return PCIcon
+      if (data.toLowerCase().includes('mathematics')) return MathsIcon
+      if (data.toLowerCase().includes('mythology')) return MythIcon
+      if (data.toLowerCase().includes('sports')) return SportsIcon
+      if (data.toLowerCase().includes('geography')) return GeoIcon
+      if (data.toLowerCase().includes('history')) return HistoryIcon
+      if (data.toLowerCase().includes('politics')) return PoliticsIcon
+      if (data.toLowerCase().includes('celeb')) return CelebIcon
+      if (data.toLowerCase().includes('animals')) return AnimalsIcon
+      if (data.toLowerCase().includes('vehicles')) return VehiclesIcon
+      if (data.toLowerCase().includes('comics')) return ComicsIcon
+      if (data.toLowerCase().includes('gadgets')) return GadgetsIcon
+      if (data.toLowerCase().includes('manga')) return MangaIcon
+      if (data.toLowerCase().includes('cartoon')) return CartoonIcon
+      if (data.toLowerCase().includes('art')) return ArtIcon
+
+      return GenIcon
     }
 
     const handleClick = (data) => {
@@ -96,10 +149,10 @@ export default defineComponent({
     })
 
     return {
-      options,
-      getIcon,
+      getCategory,
       getColor,
-      Film,
+      getIcon,
+      options,
 
       handleClick
     }

@@ -69,8 +69,9 @@ export default defineComponent({
   display: flex
   flex-direction: column
   align-items: center
-  gap: 2rem
+  gap: 3rem
   &__title
     letter-spacing: 1px
     text-shadow: 1px 1px 2px whitesmoke
+    text-align: center
 </style>
