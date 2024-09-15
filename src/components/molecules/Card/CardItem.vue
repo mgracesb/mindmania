@@ -8,7 +8,14 @@
       <p class="card-item__text" v-html="question.question"></p>
 
       <div v-if="options" class="card-item__buttons">
-        <v-btn v-for="option in options" :key="option" variant="outlined">
+        <v-btn
+          v-for="option in options"
+          :key="option"
+          variant="outlined"
+          :color="getColor(option)"
+          :disabled="isTransitioning"
+          @click="handleClick(option)"
+        >
           {{ option }}
         </v-btn>
       </div>
@@ -17,23 +24,66 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from 'vue'
+import { ref, computed, defineComponent } from 'vue'
+import { QuestionType } from '@/utils/types/Card.ts'
+
 import HardIcon from '@/assets/icons/levels/hard.svg'
+import MediumIcon from '@/assets/icons/levels/medium.svg'
+import EasyIcon from '@/assets/icons/levels/easy.svg'
 import Film from '@/assets/icons/categories/film.svg'
 
 export default defineComponent({
   name: 'CardItem',
   props: {
-    question: { type: Array, default: () => [] }
+    question: {
+      type: Object as () => QuestionType,
+      default: () => {}
+    },
+    isTransitioning: {
+      type: Boolean,
+      default: false
+    }
   },
-  setup(props) {
-    const options = ref(null)
+  setup(props, { emit }) {
+    const selected = ref(null)
 
     const getIcon = (data: string) => {
-      return HardIcon
+      if (data === 'hard') return HardIcon
+      if (data === 'medium') return MediumIcon
+      return EasyIcon
     }
 
-    const shuffle = () => {
+    const handleClick = (data) => {
+      selected.value = data.toLowerCase()
+
+      if (data.toLowerCase() === props.question.correct_answer.toLowerCase()) {
+        emit('next', data, true)
+        return
+      }
+
+      emit('next', data)
+    }
+
+    const getColor = (data: string): string => {
+      console.log('DATA', data)
+      console.log('SEL', selected.value)
+      const current = data.toLowerCase()
+      if (props.isTransitioning && current === props.question.correct_answer.toLowerCase()) {
+        return 'green'
+      }
+
+      if (
+        props.isTransitioning &&
+        selected.value === current &&
+        current !== props.question.correct_answer.toLowerCase()
+      ) {
+        return 'red'
+      }
+
+      return 'gray'
+    }
+    const options = computed(() => {
+      console.log('options', props)
       const list = [...props.question.incorrect_answers]
       list.push(props.question.correct_answer)
 
@@ -42,15 +92,16 @@ export default defineComponent({
         ;[list[i], list[rand]] = [list[rand], list[i]]
       }
 
-      options.value = list
-    }
-
-    shuffle()
+      return list
+    })
 
     return {
       options,
       getIcon,
-      Film
+      getColor,
+      Film,
+
+      handleClick
     }
   }
 })
@@ -59,6 +110,9 @@ export default defineComponent({
 <style lang="sass" scoped>
 .card-item
   position: relative
+  max-width: 360px
+  @media (min-width: 800px)
+    max-width: 500px
   &__text
     color: black
     font-size: 1.2rem
@@ -66,10 +120,10 @@ export default defineComponent({
     text-align: center
   &__icon
     position: absolute
-    width: 1.8rem
-    height: 1.8rem
-    right: 8px
-    top: 8px
+    width: auto
+    height: 1rem
+    right: 1rem
+    top: 1rem
   &__buttons
     display: flex
     flex-wrap: wrap

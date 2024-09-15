@@ -1,6 +1,12 @@
 <template>
   <main>
-    <QuizContainer :category="categoryName" :quiz="quiz" />
+    <QuizContainer
+      v-if="!showTotalComponent"
+      :category="categoryName"
+      :quiz="quiz"
+      @complete="handleComplete"
+    />
+    <CompletedItem v-else :total="quiz.length" :correct="userTotalCorrect" />
   </main>
 </template>
 
@@ -9,14 +15,19 @@ import { defineComponent, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 import QuizContainer from '@/components/organisms/Quiz/QuizContainer.vue'
+import CompletedItem from '@/components/molecules/Completed/CompletedItem.vue'
 
 export default defineComponent({
   name: 'QuizView',
-  components: { QuizContainer },
+  components: { QuizContainer, CompletedItem },
   setup() {
     const route = useRoute()
+
+    const allCorrectAnswers = ref(null)
     const categoryName = ref('')
     const quiz = ref(null)
+    const userTotalCorrect = ref(0)
+    const showTotalComponent = ref(false)
 
     const getCategory = () => {
       const space = '%20'
@@ -27,6 +38,11 @@ export default defineComponent({
       const final = path[index - 1].replaceAll(space, ' ')
 
       categoryName.value = final
+    }
+
+    const handleComplete = (totalCorrect: number): void => {
+      userTotalCorrect.value = totalCorrect
+      showTotalComponent.value = true
     }
 
     const getQuiz = async () => {
@@ -40,7 +56,11 @@ export default defineComponent({
           method: 'POST'
         })
         const res = await rawResponse.json()
-        console.log('RES', res)
+
+        const correctList = []
+        res.results.map((el) => correctList.push(el.correct_answer))
+
+        allCorrectAnswers.value = correctList
         quiz.value = res.results
       } catch (error) {
         console.log('ERROR', error)
@@ -49,7 +69,14 @@ export default defineComponent({
 
     getQuiz()
 
-    return { categoryName, quiz }
+    return {
+      categoryName,
+      quiz,
+      showTotalComponent,
+      userTotalCorrect,
+
+      handleComplete
+    }
   }
 })
 </script>
