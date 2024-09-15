@@ -1,12 +1,16 @@
 <template>
   <main>
     <QuizContainer
-      v-if="!showTotalComponent"
+      v-if="!showTotalComponent && quiz"
       :category="categoryName"
       :quiz="quiz"
       @complete="handleComplete"
     />
-    <CompletedItem v-else :total="quiz.length" :correct="userTotalCorrect" />
+    <CompletedItem
+      v-if="showTotalComponent && quiz"
+      :total="quiz.length"
+      :correct="userTotalCorrect"
+    />
   </main>
 </template>
 
@@ -23,11 +27,11 @@ export default defineComponent({
   setup() {
     const route = useRoute()
 
-    const allCorrectAnswers = ref(null)
-    const categoryName = ref('')
-    const quiz = ref(null)
-    const userTotalCorrect = ref(0)
-    const showTotalComponent = ref(false)
+    const allCorrectAnswers = ref<string[]>([])
+    const categoryName = ref<string>('')
+    const quiz = ref<any[]>([])
+    const userTotalCorrect = ref<number>(0)
+    const showTotalComponent = ref<boolean>(false)
 
     const getCategory = () => {
       const space = '%20'
@@ -35,7 +39,7 @@ export default defineComponent({
 
       const path = route.path.split(slash)
       const index = path.length
-      const final = path[index - 1].replaceAll(space, ' ')
+      const final = path[index - 1].replace(new RegExp(space, 'g'), ' ')
 
       categoryName.value = final
     }
@@ -45,9 +49,9 @@ export default defineComponent({
       showTotalComponent.value = true
     }
 
-    const getQuiz = async () => {
+    const getQuiz = async (): Promise<void> => {
       getCategory()
-      const ID = route.params.id.split('/')[0]
+      const ID = typeof route.params.id === 'string' ? route.params.id.split('/')[0] : ''
 
       console.log('ID', ID)
       const url = `https://opentdb.com/api.php?amount=10&category=${ID}`
@@ -57,8 +61,8 @@ export default defineComponent({
         })
         const res = await rawResponse.json()
 
-        const correctList = []
-        res.results.map((el) => correctList.push(el.correct_answer))
+        const correctList: string[] = []
+        res.results.map((el: { correct_answer: string }) => correctList.push(el.correct_answer))
 
         allCorrectAnswers.value = correctList
         quiz.value = res.results

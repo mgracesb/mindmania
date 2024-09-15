@@ -28,7 +28,7 @@
 
 <script lang="ts">
 import { ref, computed, defineComponent } from 'vue'
-import { QuestionType } from '@/utils/types/Card.ts'
+import { type QuestionType } from '@/utils/types/Card'
 
 import HardIcon from '@/assets/icons/levels/hard.svg'
 import MediumIcon from '@/assets/icons/levels/medium.svg'
@@ -72,7 +72,7 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    const selected = ref(null)
+    const selected = ref<string>('')
 
     const getIcon = (data: string): string => {
       if (data === 'hard') return HardIcon
@@ -109,7 +109,7 @@ export default defineComponent({
       return GenIcon
     }
 
-    const handleClick = (data) => {
+    const handleClick = (data: string): void => {
       selected.value = data.toLowerCase()
 
       if (data.toLowerCase() === props.question.correct_answer.toLowerCase()) {

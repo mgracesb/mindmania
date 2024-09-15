@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import router from '@/router/index.ts'
+import router from '@/router/index'
 
 import SuccessIcon from '@/assets/icons/success.svg'
 

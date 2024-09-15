@@ -21,7 +21,8 @@
 
 <script lang="ts">
 import { ref, defineComponent } from 'vue'
-import router from '@/router/index.ts'
+import router from '@/router/index'
+import type { CatType } from '@/utils/types/Categories'
 
 interface CategoryInterface {
   id: number
@@ -32,9 +33,9 @@ export default defineComponent({
   name: 'HomeContainer',
   setup() {
     const category = ref('')
-    const categoryId = ref(null)
-    const categories = ref([])
-    const categoryCompleteList = ref([])
+    const categoryId = ref<number>(0)
+    const categories = ref<string[]>([])
+    const categoryCompleteList = ref<CatType[]>([])
 
     const getCategories = async () => {
       fetch('https://opentdb.com/api_category.php')

@@ -12,7 +12,7 @@
 <script lang="ts">
 import { defineComponent, computed, type ComputedRef } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
-import router from '@/router/index.ts'
+import router from '@/router/index'
 
 import AppHeader from '@/components/AppHeader.vue'
 import Logo from '@/assets/icons/logo.png'

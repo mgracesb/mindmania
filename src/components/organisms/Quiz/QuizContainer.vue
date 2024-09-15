@@ -15,6 +15,8 @@
 
 <script lang="ts">
 import { ref, defineComponent } from 'vue'
+import { type QuestionType } from '@/utils/types/Card'
+
 import CardItem from '@/components/molecules/Card/CardItem.vue'
 import Score from '@/components/atoms/Score/Score.vue'
 
@@ -23,16 +25,16 @@ export default defineComponent({
   components: { CardItem, Score },
   props: {
     category: { type: String, default: '' },
-    quiz: { type: Array, default: () => [] }
+    quiz: { type: Array as () => QuestionType[], default: () => [] }
   },
   setup(props, { emit }) {
     const correctAnswers = ref(0)
-    const correctAnswerList = ref([])
+    const correctAnswerList = ref<string[]>([])
 
     const currentQuestionIndex = ref(0)
     const isTransitioning = ref(false)
 
-    const next = (data, isCorrect: boolean = false) => {
+    const next = (data: string, isCorrect: boolean = false) => {
       isTransitioning.value = true
       correctAnswerList.value.push(data)
 
