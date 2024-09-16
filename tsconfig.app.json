@@ -7,8 +7,7 @@
     "src/**/*.vue",
     "src/**/**/*.png",
     "src/**/**/**/*.svg",
-    "src/custom.d.ts",
-    "src/vite-env.d.ts"
+    "src/**/*"
   ],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
